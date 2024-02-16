@@ -26,8 +26,23 @@ const Input: React.FunctionComponent = () => {
     ]);
     setValue("");
   }
+  // TODO: delete Todo get the id from the todo and filter the todos without it and setTodos
   function DeleteTodo(id: number) {
     const filteredTodos = todos.filter((x) => x.id !== id);
+    setTodos([...filteredTodos]);
+  }
+  //toogleTodos =>
+  function ToogleTodos(id: number) {
+    const filteredTodos = todos.map(
+      (x) => (x = x.id === id ? { ...x, done: !x.done } : x),
+    );
+    setTodos([...filteredTodos]);
+  }
+  //NOTE: edit the title of the todos-list
+  function EditTodos(id: number, updatedTitle: string) {
+    const filteredTodos = todos.map(
+      (x) => (x = x.id === id ? { ...x, title: updatedTitle } : x),
+    );
     setTodos([...filteredTodos]);
   }
   return (
@@ -56,6 +71,8 @@ const Input: React.FunctionComponent = () => {
                 title={todo.title}
                 done={todo.done}
                 deleteTodo={DeleteTodo}
+                toogleTodos={ToogleTodos}
+                editTodos={EditTodos}
                 id={todo.id}
               />
             );
